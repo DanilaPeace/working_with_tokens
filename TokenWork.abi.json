@@ -1,0 +1,54 @@
+{
+	"ABI version": 2,
+	"version": "2.1",
+	"header": ["time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "createToken",
+			"inputs": [
+				{"name":"tokenName","type":"string"},
+				{"name":"color","type":"string"},
+				{"name":"weight","type":"uint128"},
+				{"name":"horsePower","type":"uint16"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "setPrice",
+			"inputs": [
+				{"name":"tokenName","type":"string"},
+				{"name":"tokenPrice","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "tokenArr",
+			"inputs": [
+			],
+			"outputs": [
+				{"components":[{"name":"modelName","type":"string"},{"name":"color","type":"string"},{"name":"weight","type":"uint128"},{"name":"horsePower","type":"uint16"},{"name":"price","type":"uint256"}],"name":"tokenArr","type":"tuple[]"}
+			]
+		}
+	],
+	"data": [
+	],
+	"events": [
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"tokenToOwner","type":"optional(cell)"},
+		{"name":"tokenStorage","type":"optional(cell)"},
+		{"components":[{"name":"modelName","type":"string"},{"name":"color","type":"string"},{"name":"weight","type":"uint128"},{"name":"horsePower","type":"uint16"},{"name":"price","type":"uint256"}],"name":"tokenArr","type":"tuple[]"}
+	]
+}
