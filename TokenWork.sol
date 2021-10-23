@@ -9,9 +9,9 @@ contract TokenWork {
         uint128 weight;    
         uint16 horsePower; 
         uint price;
+        uint ownerAddress;
     }
 
-    mapping(string => uint) tokenToOwner;
     mapping (string => CarToken) tokenStorage;
     
     modifier checkOwnerAndAccept {
@@ -21,7 +21,8 @@ contract TokenWork {
     }
 
     modifier checkRealOwner(string tokenName) {
-        require(tokenToOwner[tokenName] == msg.pubkey(), 1002, "You aren't owner this token");
+        // Check owner address of token with address of person called function
+        require(tokenStorage[tokenName].ownerAddress == msg.pubkey(), 1002, "You aren't owner this token");
         tvm.accept();
         _;
     }
@@ -31,8 +32,9 @@ contract TokenWork {
         return tokenStorage.exists(tokenName);
     }
 
-    constructor() public checkOwnerAndAccept{
+    constructor() public {
         require(tvm.pubkey() != 0, 101);
+        require(msg.pubkey() == tvm.pubkey(), 102);
         tvm.accept();
     }
 
@@ -44,13 +46,12 @@ contract TokenWork {
         ) 
         public checkOwnerAndAccept{
             // Ckeck whether token exists with this name
-            require(!tokenInStorage(tokenName), 1001, "Such token is already exist!");
-            tokenToOwner[tokenName] = msg.pubkey();
-            tokenStorage[tokenName] = CarToken(tokenName, color, weight, horsePower, 0);
+            require(!tokenInStorage(tokenName), 1001, "Such token already exist!");
+            tokenStorage[tokenName] = CarToken(tokenName, color, weight, horsePower, 0, msg.pubkey());
     }
 
     function setPrice(string tokenName, uint tokenPrice) public checkRealOwner(tokenName) {
-        require(tokenInStorage(tokenName), 1001, "Such token isn't exist yet!");
+        require(tokenInStorage(tokenName), 1001, "Such token doesn't exist!");
         tokenStorage[tokenName].price = tokenPrice; 
     }
 }
