@@ -2,16 +2,18 @@ pragma ton-solidity >= 0.35.0;
 pragma AbiHeader expire;
 
 contract TokenWork {
-
+    // Struct for storing the token unformation
     struct CarToken {
         string modelName;
         string color;
         uint128 weight;    
         uint16 horsePower; 
         uint price;
+        // Here information about token owner is stored
         uint ownerAddress;
     }
 
+    // State vatiable for storing a name token for whole token information
     mapping (string => CarToken) tokenStorage;
     
     modifier checkOwnerAndAccept {
@@ -38,6 +40,7 @@ contract TokenWork {
         tvm.accept();
     }
 
+    // Function for token creating
     function createToken(
         string tokenName,
         string color,
@@ -50,7 +53,9 @@ contract TokenWork {
             tokenStorage[tokenName] = CarToken(tokenName, color, weight, horsePower, 0, msg.pubkey());
     }
 
+    // Function for price setting to token
     function setPrice(string tokenName, uint tokenPrice) public checkRealOwner(tokenName) {
+        // This action can only do owner of this token. 
         require(tokenInStorage(tokenName), 1001, "Such token doesn't exist!");
         tokenStorage[tokenName].price = tokenPrice; 
     }
