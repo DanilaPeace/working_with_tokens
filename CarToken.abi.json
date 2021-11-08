@@ -1,6 +1,6 @@
 {
 	"ABI version": 2,
-	"version": "2.1",
+	"version": "2.2",
 	"header": ["time", "expire"],
 	"functions": [
 		{
@@ -39,6 +39,6 @@
 		{"name":"_pubkey","type":"uint256"},
 		{"name":"_timestamp","type":"uint64"},
 		{"name":"_constructorFlag","type":"bool"},
-		{"name":"tokenStorage","type":"optional(cell)"}
+		{"name":"m_tokenStorage","type":"optional(cell)"}
 	]
 }
